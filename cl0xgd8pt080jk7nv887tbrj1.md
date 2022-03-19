@@ -82,7 +82,7 @@ class Resume(models.Model):
 + In Django, using the **X-Frame** option we can tackle this issue, as it is an HTTP response header that indicates if a site can be rendered using **iframe**  or not. If the response returns the header **SAMEORIGIN**, then only the browser will allow the site to get rendered and if the return header is **DENY** then the site will not get rendered.
 
 + To execute this, we have to include the X-Frame Option in **MIDDLEWARE** available in ```settings.py```
-```
+```py
 MIDDLEWARE = [
     ...
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -91,7 +91,7 @@ MIDDLEWARE = [
 ```
  + Then we have to set X-Frame options per views as shown in the code below
 
-```
+```py
 from django.http import HttpResponse
 from django.views.decorators.clickjacking import xframe_options_deny
 from django.views.decorators.clickjacking import xframe_options_sameorigin
@@ -118,7 +118,7 @@ def view_two(request):
 
 + But as this CSRF attack is observed mostly while submitting a form(that targets internal URL), so using ```{% csrf_token %}``` with any form using the **POST** method can prevent this attack.
 
-```
+```html
 <form method="post"> {% csrf_token %}
 
 </form>
@@ -126,7 +126,7 @@ def view_two(request):
 
 + Another method is using **decorator** method, as this method is not encouraged much as it makes the code base a bit complicated. In ```views.py``` of Django Application, this method is implemented as 
 
-```
+```py
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 
